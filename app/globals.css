@@ -1555,6 +1555,76 @@ textarea {
   height: 6px;
 }
 
+.mock-space {
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  background:
+    radial-gradient(circle at 50% 55%, rgba(255, 118, 92, 0.18), transparent 62%),
+    #070b22;
+}
+
+.mock-space::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle, rgba(255, 255, 255, 0.55) 1px, transparent 1.5px),
+    radial-gradient(circle, rgba(201, 166, 255, 0.4) 1px, transparent 1.5px);
+  background-position: 0 0, 12px 14px;
+  background-size: 28px 28px, 36px 36px;
+  opacity: 0.6;
+}
+
+.mock-orbit {
+  position: relative;
+  width: 62px;
+  height: 62px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 1px dashed rgba(255, 195, 227, 0.38);
+}
+
+.mock-planet {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 34% 28%, #ffb08a, #c9543d 58%, #612232);
+  box-shadow:
+    0 0 24px rgba(255, 120, 90, 0.35),
+    inset -6px -4px 10px rgba(0, 0, 0, 0.35);
+}
+
+.mock-route {
+  display: flex;
+  gap: 5px;
+}
+
+.mock-route i {
+  width: 11px;
+  height: 4px;
+  background: rgba(154, 216, 255, 0.45);
+}
+
+.mock-route i:first-child {
+  background: rgba(255, 195, 227, 0.75);
+}
+
+.mock-badge {
+  position: relative;
+  width: 19px;
+  height: 19px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 227, 184, 0.5);
+  background: rgba(255, 227, 184, 0.12);
+  color: #ffe3b8;
+  font-size: 10px;
+  line-height: 1;
+}
+
 .project-info {
   display: flex;
   flex-direction: column;

@@ -44,11 +44,23 @@ function MockUI({ kind }: { kind: Project["mock"] }) {
     );
   }
 
+  if (kind === "weather") {
+    return (
+      <div className="mock mock-weather">
+        <div className="mock-sun" />
+        <div className="mock-temp">24°</div>
+        <div className="mock-days"><i /><i /><i /><i /><i /></div>
+      </div>
+    );
+  }
+
   return (
-    <div className="mock mock-weather">
-      <div className="mock-sun" />
-      <div className="mock-temp">24°</div>
-      <div className="mock-days"><i /><i /><i /><i /><i /></div>
+    <div className="mock mock-space">
+      <div className="mock-orbit">
+        <div className="mock-planet" />
+      </div>
+      <div className="mock-route"><i /><i /><i /></div>
+      <div className="mock-badge" aria-hidden="true">✦</div>
     </div>
   );
 }

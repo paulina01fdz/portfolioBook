@@ -140,7 +140,7 @@ export type Project = {
   year: string;
   description: string;
   tech: string[];
-  mock: "dashboard" | "shop" | "tasks" | "weather";
+  mock: "dashboard" | "shop" | "tasks" | "weather" | "space";
   note?: string;
   url?: string;
 };
@@ -155,5 +155,15 @@ export const projects: Project[] = [
     tech: ["Python", "Django", "DRF", "JavaScript", "Axios", "Supabase"],
     mock: "tasks",
     url: "https://orbit-aplicacion.vercel.app/",
+  },
+  {
+    id: "expedicion-roja",
+    title: "Expedición Roja y Más Allá",
+    year: "2026",
+    description:
+      "Museo digital interactivo para recorrer Marte y descubrir exoplanetas con datos reales de la NASA. Seis paradas guiadas, preguntas breves, progreso guardado en el navegador e insignia final.",
+    tech: ["React", "React Router", "Motion", "NASA API", "CSS"],
+    mock: "space",
+    url: "https://expedicion-roja.vercel.app/",
   },
 ];
