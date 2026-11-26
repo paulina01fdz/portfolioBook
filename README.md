@@ -19,14 +19,14 @@ Abre [http://localhost:3000](http://localhost:3000). Para producción: `npm run 
 - **Arrastre horizontal** sobre el libro.
 - **Teclado**: `←` / `→`
 - **Rueda del ratón** (cualquier dirección).
-- **Controles visibles**: flechas anterior/siguiente, índice rápido por capítulos y numeración `01 / 03` (escritorio) o `01 / 06` (móvil).
-- En pantallas ≤ 820 px el libro pasa a una sola hoja con transición 3D y los mismos controles.
+- **Controles visibles**: flechas anterior/siguiente, índice rápido por capítulos y numeración `01 / 04` (escritorio) o `01 / 08` (móvil).
+- En pantallas ≤ 820 px el libro pasa a una sola hoja con transición 3D y los mismos controles. La secuencia incluye la contraportada inicial y la hoja de "Gracias", y no muestra el lomo negro.
 
 ## Arquitectura
 
 ```
 app/
-  layout.tsx          Fuentes (Outfit, Space Grotesk, Caveat) y globals.css
+  layout.tsx          Fuentes (Outfit, Space Grotesk, Caveat, Montserrat) y globals.css
   page.tsx            Punto de entrada
   globals.css         Sistema visual completo (grid, degradados, pliegue, tipografía)
 components/
@@ -48,26 +48,30 @@ public/profile-avatar-hd.webp   Retrato ampliado y nitido usado en el perfil
 
 Cada hoja física tiene una cara derecha (`front`) y una cara izquierda (`back`):
 
-| Hoja | Derecha | Izquierda al girar |
+| Spread | Izquierda | Derecha |
 | --- | --- | --- |
-| 0 | Perfil | Formación |
-| 1 | Habilidades | Proyectos I |
-| 2 | Proyectos II | Contacto |
+| 0 | Contraportada (`Flyleaf`) | Perfil |
+| 1 | Formación | Habilidades |
+| 2 | Proyectos I | Proyectos II |
+| 3 | Contacto | Gracias |
 
-La guarda inicial (`Flyleaf`) acompaña al perfil en el primer spread. Durante el giro se renderiza una hoja animada encima del stack; las capas base ya muestran el spread destino, por lo que la revelación es correcta en ambos sentidos.
+La guarda inicial (`Flyleaf`) acompaña al perfil en el primer spread. Durante el giro se renderiza una hoja animada encima del stack; las capas base ya muestran el spread destino, por lo que la revelación es correcta en ambos sentidos. En móvil las ocho hojas se muestran de una en una, empezando por la contraportada.
 
 ## Personalización
 
-Edita `lib/profile.ts` para cambiar nombre, correo, WhatsApp, enlaces, biografía, formación, tecnologías y proyectos. Añade cada carrera, certificación, curso o diplomado al arreglo `studies`. Los colores y el grid viven en las variables de `app/globals.css` (`--petrol`, `--violet`, `--sky`, `--lilac`, `--pink`, `--gradient-text`).
+Edita `lib/profile.ts` para cambiar nombre, correo, WhatsApp, enlaces, biografía, formación, tecnologías y proyectos. Añade cada carrera, certificación, curso o diplomado al arreglo `studies` indicando `category: "estudios"` o `category: "cursos"`; la hoja de formación lo mostrará en las pestañas superiores. Los colores y el grid viven en las variables de `app/globals.css` (`--petrol`, `--violet`, `--sky`, `--lilac`, `--pink`, `--gradient-text`).
 
-### Formulario de contacto real
+### Formulario de contacto con Brevo
 
-El formulario envía mensajes de verdad y el último spread del libro lo hace visible en escritorio (contacto + cierre).
+El formulario envía mensajes reales a través de la API SMTP de Brevo y el último spread del libro lo hace visible en escritorio (contacto + cierre).
 
-- **Por defecto:** usa [FormSubmit](https://formsubmit.co) con `profile.email`. No requiere claves ni variables de entorno. La primera vez que alguien envíe un mensaje, FormSubmit enviará un correo de activación a `fpaulina545@gmail.com`; haz clic en ese enlace una sola vez para activar el envío.
-- **Opcional:** si prefieres Formspree, copia `.env.example` a `.env.local` y define `FORMSPREE_ENDPOINT=https://formspree.io/f/TU_FORM_ID`. Reinicia `npm run dev`.
+1. Copia `.env.example` a `.env.local`.
+2. Define `BREVO_API_KEY` con una clave API de Brevo con permisos de envío.
+3. Verifica en Brevo el correo que usarás como remitente y configúralo en `BREVO_SENDER_EMAIL` (o deja el valor por defecto, `profile.email`).
+4. Opcionalmente cambia `BREVO_TO_EMAIL` si quieres recibir los mensajes en otra dirección.
+5. Reinicia `npm run dev`.
 
-El envío siempre pasa por `app/api/contact/route.ts`, por lo que el endpoint no queda expuesto en el cliente. Hay honeypot contra bots y un enlace directo de correo como respaldo.
+El envío pasa siempre por `app/api/contact/route.ts`, por lo que la clave API nunca llega al cliente. Cada mensaje llega a `BREVO_TO_EMAIL` con `reply-to` apuntando al visitante. Hay honeypot contra bots, validación de campos y un enlace `mailto:` como respaldo. Si falta la clave, el endpoint responde con un mensaje claro en español.
 
 ### Avatar
 

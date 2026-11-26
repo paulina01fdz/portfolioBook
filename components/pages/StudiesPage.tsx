@@ -1,9 +1,10 @@
 "use client";
 
+import { useState } from "react";
 import HandNote from "@/components/shared/HandNote";
 import PageBase from "@/components/shared/PageBase";
 import TypewriterText from "@/components/TypewriterText";
-import { studies } from "@/lib/profile";
+import { studyCategories, studies, type StudyCategory } from "@/lib/profile";
 
 export default function StudiesPage({
   active,
@@ -12,6 +13,9 @@ export default function StudiesPage({
   active: boolean;
   runId: number;
 }) {
+  const [category, setCategory] = useState<StudyCategory>("estudios");
+  const visibleStudies = studies.filter((study) => study.category === category);
+
   return (
     <PageBase number={2} side="right" className="page-studies">
       <div className="studies-inner">
@@ -42,8 +46,38 @@ export default function StudiesPage({
           />
         </header>
 
-        <div className="study-list">
-          {studies.map((study, index) => (
+        <nav
+          className="study-tabs"
+          role="tablist"
+          aria-label="Categorías de formación"
+        >
+          {studyCategories.map((item) => (
+            <button
+              key={item.id}
+              type="button"
+              role="tab"
+              id={`study-tab-${item.id}`}
+              aria-controls="study-panel"
+              aria-selected={category === item.id}
+              className={`study-tab ${category === item.id ? "is-active" : ""}`}
+              onClick={() => setCategory(item.id)}
+            >
+              {item.label}
+              <span className="study-tab-count" aria-hidden="true">
+                {studies.filter((study) => study.category === item.id).length}
+              </span>
+            </button>
+          ))}
+        </nav>
+
+        <div
+          className="study-list"
+          role="tabpanel"
+          id="study-panel"
+          aria-labelledby={`study-tab-${category}`}
+          key={category}
+        >
+          {visibleStudies.map((study, index) => (
             <article className="study-card" key={study.id}>
               <span className="study-marker" aria-hidden="true">✦</span>
               <div className="study-copy">
@@ -53,9 +87,9 @@ export default function StudiesPage({
                 {study.period && <span className="study-period">{study.period}</span>}
                 {study.description && <p className="study-description">{study.description}</p>}
               </div>
-              {index === 0 && (
-                <span className="study-index" aria-hidden="true">01</span>
-              )}
+              <span className="study-index" aria-hidden="true">
+                {String(index + 1).padStart(2, "0")}
+              </span>
             </article>
           ))}
         </div>
@@ -63,7 +97,8 @@ export default function StudiesPage({
         <div className="studies-footer">
           <HandNote className="note-white">el aprendizaje nunca termina ✦</HandNote>
           <span className="studies-count">
-            {studies.length} {studies.length === 1 ? "etapa" : "etapas"}
+            {visibleStudies.length}{" "}
+            {visibleStudies.length === 1 ? "etapa" : "etapas"}
           </span>
         </div>
       </div>

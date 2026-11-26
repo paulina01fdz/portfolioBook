@@ -22,19 +22,28 @@ export const profile = {
   focus: "Desarrollo web · lógica · datos · pruebas",
 };
 
+export type StudyCategory = "estudios" | "cursos";
+
 export type Study = {
   id: string;
   title: string;
+  category: StudyCategory;
   kind: "Carrera" | "Certificación" | "Curso" | "Diplomado" | "Otro";
   institution?: string;
   period?: string;
   description?: string;
 };
 
+export const studyCategories: { id: StudyCategory; label: string }[] = [
+  { id: "estudios", label: "Estudios" },
+  { id: "cursos", label: "Cursos" },
+];
+
 export const studies: Study[] = [
   {
     id: "bachiller",
     title: "Bachiller Académico",
+    category: "estudios",
     kind: "Otro",
     institution: "I.E.R. Dario Gutiérrez Rave",
     period: "2023",
@@ -42,6 +51,7 @@ export const studies: Study[] = [
   {
     id: "tecnologo-sena",
     title: "Tecnólogo en Análisis y Desarrollo de Software",
+    category: "estudios",
     kind: "Carrera",
     institution: "SENA",
     period: "Actual",
@@ -49,6 +59,7 @@ export const studies: Study[] = [
   {
     id: "react-redux",
     title: "Desarrollo Web FrontEnd React & Redux",
+    category: "cursos",
     kind: "Certificación",
     institution: "SENA · KEYCODE · AHK",
     period: "Nov 2024",
@@ -56,6 +67,7 @@ export const studies: Study[] = [
   {
     id: "programacion-intermedia",
     title: "Programación Intermedia",
+    category: "cursos",
     kind: "Curso",
     institution: "Talento Tech · UdeA",
     period: "Jul 2025",
@@ -63,6 +75,7 @@ export const studies: Study[] = [
   {
     id: "python",
     title: "Programación con Python",
+    category: "cursos",
     kind: "Curso",
     institution: "Tecnológico de Antioquia",
     period: "2023",
@@ -85,10 +98,10 @@ export const skillGroups: SkillGroup[] = [
     title: "Front-end",
     subtitle: "INTERFACES",
     skills: [
-      { name: "React", level: 60 },
+      { name: "React", level: 50 },
       { name: "Redux", level: 50 },
       { name: "Bootstrap", level: 70 },
-      { name: "Axios", level: 70 },
+      { name: "Axios", level: 60 },
       { name: "JavaScript DOM", level: 70 },
       { name: "Diseño responsive", level: 70 },
     ],
@@ -102,7 +115,7 @@ export const skillGroups: SkillGroup[] = [
       { name: "Django", level: 70 },
       { name: "Django REST Framework", level: 70 },
       { name: "MongoDB", level: 80 },
-      { name: "Supabase", level: 50 },
+      { name: "Supabase", level: 30 },
       { name: "SQL", level: 50 },
     ],
   },

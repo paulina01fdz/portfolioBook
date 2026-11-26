@@ -70,12 +70,20 @@ export default function ContactPage({
           name: String(data.get("name") ?? "").trim(),
           email: String(data.get("email") ?? "").trim(),
           message: String(data.get("message") ?? "").trim(),
+          _honey: String(data.get("_honey") ?? ""),
         }),
       });
 
-      const result = (await response.json()) as { error?: string };
+      const result = (await response.json()) as {
+        error?: string;
+        detail?: string;
+      };
       if (!response.ok) {
-        throw new Error(result.error ?? "No fue posible enviar el mensaje.");
+        throw new Error(
+          result.detail
+            ? `${result.error ?? "No fue posible enviar el mensaje."} (${result.detail})`
+            : (result.error ?? "No fue posible enviar el mensaje."),
+        );
       }
 
       form.reset();

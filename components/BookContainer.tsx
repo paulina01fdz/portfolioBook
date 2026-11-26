@@ -34,21 +34,25 @@ const DESKTOP_CHAPTERS: Chapter[] = [
 ];
 
 const MOBILE_PAGES: PageId[] = [
+  "flyleaf",
   "about",
   "studies",
   "skills",
   "projects-left",
   "projects-right",
   "contact",
+  "thanks",
 ];
 
 const MOBILE_CHAPTERS: Chapter[] = [
-  { label: "Perfil", index: 0 },
-  { label: "Estudios", index: 1 },
-  { label: "Skills", index: 2 },
-  { label: "Proy. I", index: 3 },
-  { label: "Proy. II", index: 4 },
-  { label: "Contacto", index: 5 },
+  { label: "Contraportada", index: 0 },
+  { label: "Perfil", index: 1 },
+  { label: "Estudios", index: 2 },
+  { label: "Skills", index: 3 },
+  { label: "Proy. I", index: 4 },
+  { label: "Proy. II", index: 5 },
+  { label: "Contacto", index: 6 },
+  { label: "Gracias", index: 7 },
 ];
 
 type FlipState = {
@@ -85,7 +89,10 @@ export default function BookContainer({
   initialSpread?: number;
   isCovered?: boolean;
 }) {
-  const initialMobileIndex = Math.max(0, initialSpread * 2 - 1);
+  const initialMobileIndex = Math.min(
+    MOBILE_PAGES.length - 1,
+    Math.max(0, initialSpread * 2),
+  );
   const [spread, setSpread] = useState(initialSpread);
   const [mobileIndex, setMobileIndex] = useState(initialMobileIndex);
   const [mobileDirection, setMobileDirection] = useState<1 | -1>(1);
@@ -276,7 +283,7 @@ export default function BookContainer({
         pendingRef.current = null;
         const nextMobile = Math.min(
           MOBILE_PAGES.length - 1,
-          Math.max(0, spreadRef.current * 2 - 1),
+          Math.max(0, spreadRef.current * 2),
         );
         mobileIndexRef.current = nextMobile;
         setMobileIndex(nextMobile);
@@ -442,7 +449,6 @@ export default function BookContainer({
                   />
                 </motion.div>
               </AnimatePresence>
-              <div className="spine spine-mobile" aria-hidden="true" />
             </>
           )}
         </div>

@@ -1,7 +1,6 @@
 "use client";
 
 import CurvedArrow from "@/components/shared/CurvedArrow";
-import DrippingTitle from "@/components/shared/DrippingTitle";
 import HandNote from "@/components/shared/HandNote";
 import PageBase from "@/components/shared/PageBase";
 import TypewriterText from "@/components/TypewriterText";
@@ -65,11 +64,15 @@ export function ThanksPage({ active, runId }: DecorativeProps) {
     <PageBase number={6} side="right" className="page-thanks">
       <div className="thanks-inner">
         <span className="thanks-eyebrow">FIN DEL RECORRIDO</span>
-        <DrippingTitle
+        <TypewriterText
+          as="h1"
           text="GRACIAS"
+          className="thanks-title gradient-text"
           active={active}
           runId={runId}
-          baseDelay={100}
+          speed={70}
+          delay={100}
+          showCursor={false}
         />
         <TypewriterText
           text="por hojear hasta aquí"
