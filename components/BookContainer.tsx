@@ -193,7 +193,9 @@ export default function BookContainer({
     function handleKey(event: KeyboardEvent) {
       const target = event.target as HTMLElement | null;
       if (
-        target?.closest("input, textarea, select, [contenteditable='true']")
+        target?.closest(
+          "input, textarea, select, [contenteditable='true'], [data-no-flip]",
+        )
       ) {
         return;
       }

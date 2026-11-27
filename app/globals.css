@@ -21,6 +21,11 @@
   --shadow-deep: 0 30px 90px rgba(0, 0, 0, 0.62);
   --gradient-text: linear-gradient(112deg, #a9e7ff 4%, #cbb6ff 48%, #ffc6e5 92%);
   --gradient-accent: linear-gradient(100deg, #8fd6ff, #c9a6ff 52%, #ffc3e3);
+  --font-display: "Outfit Variable";
+  --font-body: "Space Grotesk Variable";
+  --font-hand: "Caveat Variable";
+  --font-heading: "Montserrat Variable";
+  --font-thanks: "Playfair Display Variable";
 }
 
 * {
@@ -1383,6 +1388,179 @@ textarea {
   inset: 0;
   pointer-events: none;
   background: linear-gradient(135deg, rgba(154, 216, 255, 0.12), transparent 45%, rgba(201, 166, 255, 0.16));
+}
+
+/* Demo real incrustada: vista previa del proyecto desplegado */
+.live-demo {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: #070b22;
+}
+
+.live-demo-viewport {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.live-demo-frame {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border: 0;
+  transform-origin: top left;
+  pointer-events: none;
+}
+
+.live-demo-open {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 7px;
+  border: 0;
+  background: linear-gradient(180deg, rgba(4, 9, 26, 0.28), transparent 42%, rgba(4, 9, 26, 0.66));
+  color: var(--white);
+  cursor: zoom-in;
+}
+
+.live-demo-badge {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 6px;
+  border: 1px solid rgba(154, 216, 255, 0.38);
+  border-radius: 99px;
+  background: rgba(7, 20, 40, 0.78);
+  color: var(--sky-soft);
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+}
+
+.live-demo-badge i {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #7cf0b8;
+  box-shadow: 0 0 7px #7cf0b8;
+  animation: live-pulse 1.6s ease-in-out infinite;
+}
+
+@keyframes live-pulse {
+  0%, 100% { opacity: 0.45; }
+  50% { opacity: 1; }
+}
+
+.live-demo-hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 7px;
+  border-radius: 6px;
+  background: rgba(11, 16, 44, 0.86);
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 9px;
+  letter-spacing: 0.03em;
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.live-demo-open:hover .live-demo-hint,
+.live-demo-open:focus-visible .live-demo-hint {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (hover: none) {
+  .live-demo-hint {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Modal de la demo interactiva, fuera del libro para evitar sus giros 3D */
+.demo-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  padding: clamp(12px, 3vw, 36px);
+  background: rgba(2, 5, 16, 0.82);
+  backdrop-filter: blur(12px);
+}
+
+.demo-modal-panel {
+  width: min(1100px, 100%);
+  height: min(760px, 100%);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid rgba(201, 166, 255, 0.32);
+  border-radius: 16px;
+  background: #070b22;
+  box-shadow: 0 40px 120px rgba(0, 0, 0, 0.7);
+}
+
+.demo-modal-head {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 14px;
+  border-bottom: 1px solid rgba(201, 166, 255, 0.18);
+  background: linear-gradient(90deg, rgba(154, 216, 255, 0.08), rgba(201, 166, 255, 0.08));
+}
+
+.demo-modal-title {
+  font-family: var(--font-display), sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.demo-modal-title span {
+  color: var(--sky);
+  font-size: 9px;
+  letter-spacing: 0.16em;
+}
+
+.demo-modal-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.demo-modal-actions a {
+  border-bottom: 1px solid rgba(201, 166, 255, 0.5);
+  color: var(--lilac-soft);
+  font-size: 10px;
+  text-decoration: none;
+}
+
+.demo-modal-actions button {
+  width: 26px;
+  height: 26px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(201, 166, 255, 0.35);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--white);
+  cursor: pointer;
+}
+
+.demo-modal-frame {
+  flex: 1 1 auto;
+  width: 100%;
+  border: 0;
+  background: #070b22;
 }
 
 .mock {

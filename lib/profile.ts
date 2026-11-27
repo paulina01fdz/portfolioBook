@@ -141,6 +141,8 @@ export type Project = {
   description: string;
   tech: string[];
   mock: "dashboard" | "shop" | "tasks" | "weather" | "space";
+  /** URL del proyecto desplegado cuando se puede mostrar en un iframe. */
+  demoUrl?: string;
   note?: string;
   url?: string;
 };
@@ -154,6 +156,7 @@ export const projects: Project[] = [
       "Aplicación web de gestión de proyectos y tareas mediante metodología Kanban, con roles de usuario y administrador, estadísticas y gestión de actividades.",
     tech: ["Python", "Django", "DRF", "JavaScript", "Axios", "Supabase"],
     mock: "tasks",
+    demoUrl: "https://orbit-aplicacion.vercel.app/",
     url: "https://orbit-aplicacion.vercel.app/",
   },
   {
@@ -164,6 +167,8 @@ export const projects: Project[] = [
       "Museo digital interactivo para recorrer Marte y descubrir exoplanetas con datos reales de la NASA. Seis paradas guiadas, preguntas breves, progreso guardado en el navegador e insignia final.",
     tech: ["React", "React Router", "Motion", "NASA API", "CSS"],
     mock: "space",
+    // Vercel no devuelve X-Frame-Options ni CSP frame-ancestors: se puede incrustar.
+    demoUrl: "https://expedicion-roja.vercel.app/",
     url: "https://expedicion-roja.vercel.app/",
   },
 ];

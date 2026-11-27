@@ -1,45 +1,11 @@
 import type { Metadata } from "next";
-import {
-  Caveat,
-  Montserrat,
-  Outfit,
-  Playfair_Display,
-  Space_Grotesk,
-} from "next/font/google";
+// Fuentes autoalojadas: evita que el build/dev dependa de fonts.googleapis.com.
+import "@fontsource-variable/outfit";
+import "@fontsource-variable/space-grotesk";
+import "@fontsource-variable/caveat";
+import "@fontsource-variable/montserrat";
+import "@fontsource-variable/playfair-display";
 import "./globals.css";
-
-const outfit = Outfit({
-  subsets: ["latin"],
-  variable: "--font-display",
-  display: "swap",
-});
-
-const spaceGrotesk = Space_Grotesk({
-  subsets: ["latin"],
-  variable: "--font-body",
-  display: "swap",
-});
-
-const caveat = Caveat({
-  subsets: ["latin"],
-  weight: ["400", "600", "700"],
-  variable: "--font-hand",
-  display: "swap",
-});
-
-const montserrat = Montserrat({
-  subsets: ["latin"],
-  weight: ["600", "700"],
-  variable: "--font-heading",
-  display: "swap",
-});
-
-const playfair = Playfair_Display({
-  subsets: ["latin"],
-  weight: ["600", "700"],
-  variable: "--font-thanks",
-  display: "swap",
-});
 
 export const metadata: Metadata = {
   title: "Paulina Fernández Hernández · Portfolio 2026",
@@ -52,11 +18,7 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="es">
-      <body
-        className={`${outfit.variable} ${spaceGrotesk.variable} ${caveat.variable} ${montserrat.variable} ${playfair.variable}`}
-      >
-        {children}
-      </body>
+      <body>{children}</body>
     </html>
   );
 }
